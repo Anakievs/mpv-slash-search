@@ -19,6 +19,11 @@ end
 
 function search:show_input(duration)
 	input_line= "/".. self.input_string
+	result= search:filtered_playlist(search.input_string)
+	if result[0] then
+		local l_path, t= utils.split_path(mp.get_property('playlist/'.. result[0][1].. '/filename'))
+		input_line= input_line.. "\n".. t
+	end
 	mp.osd_message(input_line, 600)
 end
 
