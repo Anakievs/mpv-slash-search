@@ -3,6 +3,8 @@ local search= require('search')
 function slash_search()
 	search:init()
 	search:enter_input_mode(on_search_input_done)
+	search.input_string= ""
+	mp.osd_message("/", 600)
 end
 
 function on_search_input_done()
@@ -10,7 +12,6 @@ function on_search_input_done()
 	if search.result[0] then
 		mp.commandv("playlist-play-index", search.result[0][1])
 	end
-	search.input_string= ""
 	mp.osd_message("")
 end
 

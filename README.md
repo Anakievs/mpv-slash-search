@@ -11,8 +11,9 @@ Press "/" type a keyword than press Enter.
 
 | Key | Action |
 | --- | ------ |
-| <kbd>/</kbd> | Enter search mode. |
-| <kbd>Enter</kbd> | Play the first match found. |
+| <kbd>/</kbd> | Enter search mode. <br /> Reset the search. |
+| <kbd>Enter</kbd> or <kbd>Ctrl</kbd>+<kbd>j</kbd>| Play the first match found. |
+| <kbd>Backspace</kbd> or <kbd>Ctrl</kbd>+<kbd>h</kbd>| Delete a character. |
 | <kbd>ESC</kbd> | Cancel the search. |
 
 ## Screenshot

@@ -56,7 +56,9 @@ local SEARCH_BINDINGS= {}
 function add_search_keybindings()
 	local bindings= {
 		{'BS', handle_backspace},
+		{'Ctrl+h', handle_backspace},
 		{'ENTER', handle_search_enter},
+		{'Ctrl+j', handle_search_enter},
 		{'ESC', handle_search_escape},
 		{'SPACE', function() handle_input(' ') end}
 	}
