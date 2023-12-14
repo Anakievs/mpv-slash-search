@@ -11,9 +11,12 @@ Press "/" type a keyword than press Enter.
 
 | Key | Action |
 | --- | ------ |
-| / | Enter search mode. |
-| Enter | Play the first match found. |
-| ESC | Cancel the search. |
+| <kbd>/</kbd> | Enter search mode. |
+| <kbd>Enter</kbd> | Play the first match found. |
+| <kbd>ESC</kbd> | Cancel the search. |
+
+## Screenshot
+![Screenshot](https://github.com/Anakievs/mpv-slash-search/Screenshot.png)
 
 I've made this script for myself but it can be useful for someone else. The search is case-insensitive, "." and ".*" are supported.
 The script is modification of drogers141's [mpv-playlist-navigator](https://github.com/drogers141/mpv-playlist-navigator).
