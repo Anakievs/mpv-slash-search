@@ -26,4 +26,4 @@ Keep in mind that this is my first time using Lua.
 
 ## Installation
 
-Copy "slashSearch.lua" to "~/.config/mpv/scripts/" and "search.lua" to "/usr/share/lua/5.1/". Tested on Arch Linux.
+Copy "main.lua" and "search.lua" to "~/.config/mpv/scripts/mpv-slash-search". Tested on Arch Linux.
