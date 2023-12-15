@@ -1,7 +1,7 @@
 # mpv-slash-search
 
 Simple and lightweight script that allows you to search for a file in the playlist and jump to the first match.
-It will display the matching file in a new line.
+As you type the result will appear on the next line.
 
 ## Usage
 
@@ -12,8 +12,9 @@ Press "/" type a keyword than press Enter.
 | Key | Action |
 | --- | ------ |
 | <kbd>/</kbd> | Enter search mode. <br /> Reset the search. |
-| <kbd>Enter</kbd> or <kbd>Ctrl</kbd>+<kbd>j</kbd>| Play the first match found. |
-| <kbd>Backspace</kbd> or <kbd>Ctrl</kbd>+<kbd>h</kbd>| Delete a character. |
+| <kbd>Enter</kbd> or <kbd>Ctrl</kbd>+<kbd>j</kbd> | Play the first match found. |
+| <kbd>Backspace</kbd> or <kbd>Ctrl</kbd>+<kbd>h</kbd> | Delete a character. |
+| <kbd>TAB</kbd> | Insert ".*" |
 | <kbd>ESC</kbd> | Cancel the search. |
 
 ## Screenshot

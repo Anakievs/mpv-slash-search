@@ -60,6 +60,7 @@ function add_search_keybindings()
 		{'ENTER', handle_search_enter},
 		{'Ctrl+j', handle_search_enter},
 		{'ESC', handle_search_escape},
+		{'TAB', function() handle_input('.*') end},
 		{'SPACE', function() handle_input(' ') end}
 	}
 	for ch in AVAILABLE_INPUT_CHARS:gmatch"." do
