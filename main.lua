@@ -10,7 +10,7 @@ end
 function on_search_input_done()
 	search.result= search:filtered_playlist(search.input_string)
 	if search.result[0] then
-		mp.commandv("playlist-play-index", search.result[0][1])
+		mp.commandv("playlist-play-index", search.result[search.resultIndex][1])
 	end
 	mp.osd_message("")
 end

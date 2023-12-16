@@ -4,6 +4,7 @@ local search= {
 	finished_callback= nil,
 	pos= 0,
 	len= 0,
+	resultIndex= 0,
 	files= {},
 	result= {}
 }
@@ -21,7 +22,7 @@ function search:show_input(duration)
 	input_line= "/".. self.input_string
 	result= search:filtered_playlist(search.input_string)
 	if result[0] then
-		local l_path, t= utils.split_path(mp.get_property('playlist/'.. result[0][1].. '/filename'))
+		local l_path, t= utils.split_path(mp.get_property('playlist/'.. result[self.resultIndex][1].. '/filename'))
 		input_line= input_line.. "\n".. t
 	end
 	mp.osd_message(input_line, 600)
@@ -47,7 +48,22 @@ function handle_backspace()
 end
 
 function handle_input(char)
+	search.resultIndex= 0
 	search.input_string= search.input_string.. char
+	search:show_input()
+end
+
+function resultDec()
+	if search.resultIndex> 0 then
+		search.resultIndex= search.resultIndex- 1
+	end
+	search:show_input()
+end
+
+function resultInc()
+	if search.resultIndex< #result then
+		search.resultIndex= search.resultIndex+ 1
+	end
 	search:show_input()
 end
 
@@ -59,6 +75,8 @@ function add_search_keybindings()
 		{'Ctrl+h', handle_backspace},
 		{'ENTER', handle_search_enter},
 		{'Ctrl+j', handle_search_enter},
+		{'Ctrl+i', resultDec},
+		{'Ctrl+o', resultInc},
 		{'ESC', handle_search_escape},
 		{'TAB', function() handle_input('.*') end},
 		{'SPACE', function() handle_input(' ') end}
