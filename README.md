@@ -22,7 +22,7 @@ Press "/" type a keyword than press Enter.
 ![Screenshot](Screenshot.png)
 
 I've made this script for myself but it can be useful for someone else. The search is case-insensitive, "." and ".*" are supported.
-The script is modification of drogers141's [mpv-playlist-navigator](https://github.com/drogers141/mpv-playlist-navigator).
+The script is modification of [drogers141/mpv-playlist-navigator](https://github.com/drogers141/mpv-playlist-navigator).
 Keep in mind that this is my first time using Lua.
 
 ## Installation

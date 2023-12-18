@@ -18,7 +18,7 @@ function search:enter_input_mode(callback)
 	self:show_input()
 end
 
-function search:show_input(duration)
+function search:show_input()
 	input_line= "/".. self.input_string
 	result= search:filtered_playlist(search.input_string)
 	if result[0] then
