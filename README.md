@@ -19,6 +19,7 @@ Press "/" type a keyword than press Enter.
 | <kbd>ESC</kbd> | Cancel the search. |
 
 ## Screenshot
+
 ![Screenshot](Screenshot.png)
 
 I've made this script for myself but it can be useful for someone else. The search is case-insensitive, "." and ".*" are supported.
@@ -28,3 +29,7 @@ Keep in mind that this is my first time using Lua.
 ## Installation
 
 Copy "main.lua" and "search.lua" to "~/.config/mpv/scripts/mpv-slash-search/".
+
+## Beta features
+
+If you want more features check the [advance branch](https://github.com/Anakievs/mpv-slash-search/tree/advance) out.
