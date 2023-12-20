@@ -1,4 +1,4 @@
-local utils= require("mp.utils")
+local utils= require('mp.utils')
 
 local search= {
 	finished_callback= nil,
@@ -9,8 +9,8 @@ local search= {
 	result= {}
 }
 
-AVAILABLE_INPUT_CHARS= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.*%?+[]()"
-search.input_string= ""
+AVAILABLE_INPUT_CHARS= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.*%?+()'
+search.input_string= ''
 
 function search:enter_input_mode(callback)
 	self.finished_callback= callback
@@ -19,11 +19,11 @@ function search:enter_input_mode(callback)
 end
 
 function search:show_input()
-	input_line= "/".. self.input_string
+	input_line= '/'.. self.input_string
 	result= search:filtered_playlist(search.input_string)
 	if result[0] then
 		local l_path, t= utils.split_path(mp.get_property('playlist/'.. result[self.resultIndex][1].. '/filename'))
-		input_line= input_line.. "\n".. t
+		input_line= input_line.. '\n'.. t
 	end
 	mp.osd_message(input_line, 600)
 end
@@ -35,12 +35,12 @@ end
 
 function handle_search_escape()
 	remove_search_keybindings()
-	mp.osd_message("")
-	search.input_string= ""
+	mp.osd_message('')
+	search.input_string= ''
 end
 
 function handle_backspace()
-	if search.input_string== "" then
+	if search.input_string== '' then
 		return
 	end
 	search.input_string= string.sub(search.input_string, 1, -2)
@@ -81,7 +81,7 @@ function add_search_keybindings()
 		{'TAB', function() handle_input('.*') end},
 		{'SPACE', function() handle_input(' ') end}
 	}
-	for ch in AVAILABLE_INPUT_CHARS:gmatch"." do
+	for ch in AVAILABLE_INPUT_CHARS:gmatch'.' do
 		bindings[#bindings+ 1]= {ch, function() handle_input(ch) end}
 	end
 	for i, binding in ipairs(bindings) do
@@ -89,7 +89,7 @@ function add_search_keybindings()
 		local func= binding[2]
 		local name= '__search_binding_'.. i
 		SEARCH_BINDINGS[#SEARCH_BINDINGS+ 1]= name
-		mp.add_forced_key_binding(key, name, func, "repeatable")
+		mp.add_forced_key_binding(key, name, func, 'repeatable')
 	end
 end
 
@@ -120,11 +120,11 @@ function search:get_playlist()
 end
 
 function case_insensitive_pattern(pattern)
-	local p= pattern:gsub("(%%?)(.)", function(percent, letter)
-		if percent~= "" or not letter:match("%a") then
+	local p= pattern:gsub('(%%?)(.)', function(percent, letter)
+		if percent~= '' or not letter:match('%a') then
 			return percent.. letter
 		else
-			return string.format("[%s%s]", letter:lower(), letter:upper())
+			return string.format('[%s%s]', letter:lower(), letter:upper())
 		end
 	end)
 	return p

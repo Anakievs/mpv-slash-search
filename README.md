@@ -32,4 +32,4 @@ Copy "main.lua" and "search.lua" to "~/.config/mpv/scripts/mpv-slash-search/".
 
 ## Beta features
 
-If you want more features check the [advance branch](https://github.com/Anakievs/mpv-slash-search/tree/advance) out.
+If you want more features check out the [advance branch](https://github.com/Anakievs/mpv-slash-search/tree/advance).
