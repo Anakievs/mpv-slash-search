@@ -28,9 +28,12 @@ function search:show_input()
 	mp.osd_message(input_line, 600)
 end
 
-function handle_search_enter()
+function handle_search_enter(playNext)
 	remove_search_keybindings()
 	search.finished_callback()
+	if playNext then
+		mp.commandv('playlist-next')
+	end
 end
 
 function handle_search_escape()
@@ -73,8 +76,9 @@ function add_search_keybindings()
 	local bindings= {
 		{'BS', handle_backspace},
 		{'Ctrl+h', handle_backspace},
-		{'ENTER', handle_search_enter},
-		{'Ctrl+j', handle_search_enter},
+		{'ENTER', function() handle_search_enter(true) end},
+		{'Ctrl+j', function() handle_search_enter(true) end},
+		{'Ctrl+n', handle_search_enter},
 		{'Ctrl+i', resultDec},
 		{'Ctrl+o', resultInc},
 		{'ESC', handle_search_escape},

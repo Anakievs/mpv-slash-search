@@ -10,7 +10,7 @@ end
 function on_search_input_done()
 	search.result= search:filtered_playlist(search.input_string)
 	if search.result[0] then
-		mp.commandv('playlist-play-index', search.result[search.resultIndex][1])
+		mp.commandv('playlist-move', result[search.resultIndex][1], mp.get_property_number('playlist-pos')+ 1)
 	end
 	mp.osd_message('')
 end
