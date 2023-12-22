@@ -1,7 +1,6 @@
 local utils= require('mp.utils')
 
 local search= {
-	finished_callback= nil,
 	pos= 0,
 	len= 0,
 	resultIndex= 0,
@@ -12,8 +11,7 @@ local search= {
 AVAILABLE_INPUT_CHARS= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.*%?+()'
 search.input_string= ''
 
-function search:enter_input_mode(callback)
-	self.finished_callback= callback
+function search:enter_input_mode()
 	add_search_keybindings()
 	self:show_input()
 end
@@ -21,7 +19,7 @@ end
 function search:show_input()
 	input_line= '/'.. self.input_string
 	result= search:filtered_playlist(search.input_string)
-	if result[0] then
+	if result[self.resultIndex] then
 		local l_path, t= utils.split_path(mp.get_property('playlist/'.. result[self.resultIndex][1].. '/filename'))
 		input_line= input_line.. '\n'.. t
 	end
@@ -30,10 +28,17 @@ end
 
 function handle_search_enter(playNext)
 	remove_search_keybindings()
-	search.finished_callback()
-	if playNext then
-		mp.commandv('playlist-next')
+	search.result= search:filtered_playlist(search.input_string)
+	if search.result[search.resultIndex] then
+		if search.result[search.resultIndex][1]~= mp.get_property_number('playlist-pos', 0) then
+			mp.commandv('playlist-move', result[search.resultIndex][1], mp.get_property_number('playlist-pos')+ 1)
+			
+			if playNext then
+				mp.commandv('playlist-next')
+			end
+		end
 	end
+	mp.osd_message('')
 end
 
 function handle_search_escape()
