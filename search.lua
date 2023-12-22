@@ -30,9 +30,8 @@ function handle_search_enter(playNext)
 	remove_search_keybindings()
 	search.result= search:filtered_playlist(search.input_string)
 	if search.result[search.resultIndex] then
-		if search.result[search.resultIndex][1]~= mp.get_property_number('playlist-pos', 0) then
-			mp.commandv('playlist-move', result[search.resultIndex][1], mp.get_property_number('playlist-pos')+ 1)
-			
+		if search.result[search.resultIndex][1]~= search.pos then
+			mp.commandv('playlist-move', result[search.resultIndex][1], search.pos+ 1)
 			if playNext then
 				mp.commandv('playlist-next')
 			end
@@ -109,13 +108,10 @@ function remove_search_keybindings()
 end
 
 function search:init()
-	self:update()
-	self.files= self:get_playlist()
-end
-
-function search:update()
 	self.pos= mp.get_property_number('playlist-pos', 0)
 	self.len= mp.get_property_number('playlist-count', 0)
+	self.input_string= ''
+	self.files= self:get_playlist()
 end
 
 function search:get_playlist()

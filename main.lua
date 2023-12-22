@@ -3,7 +3,6 @@ local search= require('search')
 function slash_search()
 	search:init()
 	search:enter_input_mode()
-	search.input_string= ''
 	mp.osd_message('/', 600)
 end
 
