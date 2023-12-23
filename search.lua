@@ -50,6 +50,7 @@ function handle_backspace()
 	if search.input_string== '' then
 		return
 	end
+	search.resultIndex= 0
 	search.input_string= string.sub(search.input_string, 1, -2)
 	search:show_input()
 end
