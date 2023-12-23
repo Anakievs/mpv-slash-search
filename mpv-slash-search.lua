@@ -1,20 +1,5 @@
 local utils= require('mp.utils')
-
-local search= {
-	pos= 0,
-	len= 0,
-	resultIndex= 0,
-	files= {},
-	result= {}
-}
-
-AVAILABLE_INPUT_CHARS= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.*%?+()'
-input_string= ''
-
-function enter_input_mode()
-	add_search_keybindings()
-	show_input()
-end
+local SEARCH_BINDINGS= {}
 
 function show_input()
 	input_line= '/'.. input_string
@@ -27,23 +12,14 @@ function show_input()
 end
 
 function handle_search_enter(playNext)
-	remove_search_keybindings()
 	result= filtered_playlist(input_string)
-	if result[resultIndex] then
-		if result[resultIndex][1]~= pos then
-			mp.commandv('playlist-move', result[resultIndex][1], pos+ 1)
-			if playNext then
-				mp.commandv('playlist-next')
-			end
+	if result[resultIndex] and result[resultIndex][1]~= pos then
+		mp.commandv('playlist-move', result[resultIndex][1], pos+ 1)
+		if playNext then
+			mp.commandv('playlist-next')
 		end
 	end
-	mp.osd_message('')
-end
-
-function handle_search_escape()
-	remove_search_keybindings()
-	mp.osd_message('')
-	input_string= ''
+	close()
 end
 
 function handle_backspace()
@@ -75,9 +51,8 @@ function resultInc()
 	show_input()
 end
 
-local SEARCH_BINDINGS= {}
-
 function add_search_keybindings()
+	local AVAILABLE_INPUT_CHARS= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.*%?+()'
 	local bindings= {
 		{'BS', handle_backspace},
 		{'Ctrl+h', handle_backspace},
@@ -86,7 +61,7 @@ function add_search_keybindings()
 		{'Ctrl+n', handle_search_enter},
 		{'Ctrl+i', resultDec},
 		{'Ctrl+o', resultInc},
-		{'ESC', handle_search_escape},
+		{'ESC', close},
 		{'TAB', function() handle_input('.*') end},
 		{'SPACE', function() handle_input(' ') end}
 	}
@@ -102,10 +77,11 @@ function add_search_keybindings()
 	end
 end
 
-function remove_search_keybindings()
+function close()
 	for i, key_name in ipairs(SEARCH_BINDINGS) do
 		mp.remove_key_binding(key_name)
 	end
+	mp.osd_message('')
 end
 
 function init()
@@ -113,6 +89,8 @@ function init()
 	len= mp.get_property_number('playlist-count', 0)
 	input_string= ''
 	files= get_playlist()
+	add_search_keybindings()
+	mp.osd_message('/', 600)
 end
 
 function get_playlist()
@@ -152,10 +130,4 @@ function filtered_playlist(search_term)
 	return filtered
 end
 
-function slash_search()
-	init()
-	enter_input_mode()
-	mp.osd_message('/', 600)
-end
-
-mp.add_forced_key_binding('/', 'slash_search', slash_search)
+mp.add_forced_key_binding('/', 'init', init)
