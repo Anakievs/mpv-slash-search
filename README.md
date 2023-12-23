@@ -30,4 +30,4 @@ Keep in mind that this is my first time using Lua.
 
 ## Installation
 
-Copy "main.lua" and "search.lua" to "~/.config/mpv/scripts/mpv-slash-search/".
+Copy "mpv-slash-search.lua" to "~/.config/mpv/scripts/".
