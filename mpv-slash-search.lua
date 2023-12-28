@@ -11,12 +11,16 @@ function show_input()
 	mp.osd_message(input_line, 600)
 end
 
-function handle_search_enter(playNext)
+function handle_search_enter(mode)
 	result= filtered_playlist(input_string)
-	if result[resultIndex] and result[resultIndex][1]~= pos then
-		mp.commandv('playlist-move', result[resultIndex][1], pos+ 1)
-		if playNext then
-			mp.commandv('playlist-next')
+	if result[resultIndex] then
+		if mode== 2 then
+			mp.commandv('playlist-play-index', result[resultIndex][1])
+		elseif result[resultIndex][1]~= pos then
+			mp.commandv('playlist-move', result[resultIndex][1], pos+ 1)
+			if mode== 1 then
+				mp.commandv('playlist-next')
+			end
 		end
 	end
 	close()
@@ -56,8 +60,9 @@ function add_search_keybindings()
 	local bindings= {
 		{'BS', handle_backspace},
 		{'Ctrl+h', handle_backspace},
-		{'ENTER', function() handle_search_enter(true) end},
-		{'Ctrl+j', function() handle_search_enter(true) end},
+		{'ENTER', function() handle_search_enter(1) end},
+		{'Ctrl+j', function() handle_search_enter(1) end},
+		{'Ctrl+k', function() handle_search_enter(2) end},
 		{'Ctrl+n', handle_search_enter},
 		{'Ctrl+i', resultDec},
 		{'Ctrl+o', resultInc},
